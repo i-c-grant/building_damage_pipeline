@@ -20,7 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Database schema for reference
-SCHEMA = (
+CSV_SCHEMA = (
     "Address VARCHAR,"
     "City VARCHAR,"
     "ZIP_Code VARCHAR,"
@@ -60,16 +60,16 @@ def process_damage_reports(
         pipeline = DamageReportPipeline(conn, schema)
         pipeline.process_csv(
             csv_path,
-            "test_storm_damage",
-            "test_storm_damage_invalid"
+            "storm_damage",
+            "storm_damage_invalid"
         )
         
         # Log summary statistics
         valid_count = conn.execute(
-            "SELECT COUNT(*) FROM test_storm_damage"
+            "SELECT COUNT(*) FROM storm_damage"
         ).fetchone()[0]
         invalid_count = conn.execute(
-            "SELECT COUNT(*) FROM test_storm_damage_invalid"
+            "SELECT COUNT(*) FROM storm_damage_invalid"
         ).fetchone()[0]
         
         logger.info(f"Processing complete. Valid records: {valid_count}, "
@@ -98,7 +98,7 @@ def process_damage_reports(
 def main(db_path: str, csv_path: str):
     """Process building damage reports from CSV into DuckDB database."""
     try:
-        process_damage_reports(db_path, csv_path, SCHEMA)
+        process_damage_reports(db_path, csv_path, CSV_SCHEMA)
     except Exception as e:
         logger.error(f"Script failed: {str(e)}")
         sys.exit(1)

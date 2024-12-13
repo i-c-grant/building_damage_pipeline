@@ -121,7 +121,7 @@ class BasePipeline(ABC):
                 for hook in self.post_validation_hooks:
                     hook(self.conn)
 
-            # Add an is_valid column to the staging table
+            # add an is_valid column to the staging table
             self.conn.execute(
                 f"""
                 ALTER TABLE staging_data

@@ -48,24 +48,21 @@ def set_up_database(db_path: str, schema: str) -> None:
         
         # Drop existing tables if they exist
         tables_to_drop = [
-            "test_storm_damage",
-            "test_storm_damage_invalid"
+            "storm_damage",
+            "storm_damage_invalid"
         ]
         for table in tables_to_drop:
             conn.execute(f"DROP TABLE IF EXISTS {table}")
         
         # Create main table for valid records
-        conn.execute(f"CREATE TABLE test_storm_damage ({schema})")
-        logger.info("Created test_storm_damage table")
+        conn.execute(f"CREATE TABLE storm_damage ({schema})")
+        logger.info("Created storm_damage table")
         
         # Create table for invalid records with additional error column
         conn.execute(f"""
-            CREATE TABLE test_storm_damage_invalid (
-                {schema},
-                error_message VARCHAR
-            )
+            CREATE TABLE storm_damage_invalid ({schema})
         """)
-        logger.info("Created test_storm_damage_invalid table")
+        logger.info("Created storm_damage_invalid table")
         
     except Exception as e:
         logger.error(f"Failed to set_up database: {str(e)}")

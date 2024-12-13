@@ -48,7 +48,7 @@ def download_geojson_to_table(
         json.dump(geojson_data, temp_file)
         temp_file.flush()
         conn.execute(
-            f"CREATE TABLE {table_name} AS SELECT * FROM ST_Read('{temp_file.name}')"
+            f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM ST_Read('{temp_file.name}')"
         )
         logger.info(f"Created table {table_name}")
         num_rows = conn.execute(
@@ -59,6 +59,6 @@ def download_geojson_to_table(
         if create_spatial_index:
             logger.info(f"Creating spatial index on {table_name}...")
             conn.execute(
-                f"CREATE INDEX {table_name}_geom ON {table_name} USING RTREE (geom)"
+                f"CREATE INDEX IF NOT EXISTS {table_name}_geom ON {table_name} USING RTREE (geom)"
             )
             logger.info(f"Created spatial index on {table_name}")
