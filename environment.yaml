@@ -1,0 +1,13 @@
+name: building_damage_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - black
+  - build
+  - duckdb
+  - pre-commit
+  - flake8
+  - requests
+  - setuptools
