@@ -20,6 +20,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Database schema for reference
+# To-do: Create separate step to sanitize column names in CSV
+# rather than reproducing idiosyncratic names here
 CSV_SCHEMA = (
     "Address VARCHAR,"
     "City VARCHAR,"

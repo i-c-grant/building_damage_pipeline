@@ -18,17 +18,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Database schema
-SCHEMA = (
-    "Address VARCHAR,"
-    "City VARCHAR,"
-    "ZIP_Code VARCHAR,"
-    "No_Electricity BOOLEAN,"
-    "Basement_Flooded BOOLEAN,"
-    "Roof_Damaged BOOLEAN,"
-    "Insurance BOOLEAN,"
-    "BIN VARCHAR,"
-    "Latitude DOUBLE,"
-    "Longitude DOUBLE,"
+TABLE_SCHEMA = (
+    "address VARCHAR,"
+    "city VARCHAR,"
+    "zip VARCHAR,"
+    "no_electricity BOOLEAN,"
+    "basement_flooded BOOLEAN,"
+    "roof_damaged BOOLEAN,"
+    "insurance BOOLEAN,"
+    "bin VARCHAR,"
+    "latitude DOUBLE,"
+    "longitude DOUBLE,"
     "time_updated TIMESTAMP"
 )
 
@@ -83,7 +83,7 @@ def main(db_path: str):
     try:
         # Create parent directories if they don't exist
         Path(db_path).parent.mkdir(parents=True, exist_ok=True)
-        set_up_database(db_path, SCHEMA)
+        set_up_database(db_path, TABLE_SCHEMA)
         logger.info("Database setup completed successfully")
     except Exception as e:
         logger.error(f"Database setup failed: {str(e)}")
