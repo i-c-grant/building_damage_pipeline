@@ -10,8 +10,8 @@ My vision for the final pipeline is to develop a centralized representation of d
 ### Base Data Management
 - `download_base_data.py`: Downloads and maintains base NYC geographic data:
   - Building footprints from NYC Open Data
-  - Community district boundaries from NYC ArcGIS
-  - Uses DuckDB with spatial extensions for efficient geographic data storage
+  - Community district boundaries from ArcGIS REST service
+  - Uses DuckDB with spatial extension and indexing for efficient access over the course of the deployment
 
 ### Core Pipeline Architecture
 - `BasePipeline.py`: Abstract base class defining the ETL pipeline structure
@@ -19,11 +19,14 @@ My vision for the final pipeline is to develop a centralized representation of d
   - Supports pre and post-validation hooks
   - Manages data staging and final table insertion
   - Tracks invalid records separately
+  - Timestamps new records to allow for tracking change over time
+  - To do: abstract away from CSV processing to support other report types
 
 ### Damage Report Processing
 - `DamageReportPipeline.py`: Specialized pipeline for damage reports
+  - Extends BasePipeline with validation logic specific to the provided CSV
   - Validates geographic coordinates within NYC bounds
-  - Ensures proper formatting of BIN numbers and ZIP codes
+  - Ensures proper formatting of BIN numbers and ZIP codes, catching missing BINs
   - Normalizes address data
   - Sanitizes column names automatically
   - Location validation for Manhattan ZIP codes
@@ -40,6 +43,7 @@ The system implements two levels of validation:
 2. Row-level validation (e.g., location consistency checks)
 
 Invalid records are automatically separated into a different table for review.
+Many more validation methods could be implemented, including spatial methods.
 
 ## Database Structure
 Uses DuckDB as the backend database with:
@@ -48,12 +52,13 @@ Uses DuckDB as the backend database with:
 - Separate tables for valid and invalid records
 - Automatic timestamp tracking
 
-## Getting Started
-1. Build the environment with conda.
-2. Run pip install -e . to install the building_damage module.
+## Running the pipeline
+1. Build the environment specified in environment.yaml with conda.
+2. Run 'pip install -e .' to install the building_damage module.
 3. Run 'set_up_database.py' to set up the duckdb database.
 4. Run 'download_base_data.py' to pull geographic base data from APIs and create spatial indices.
 5. Run 'update_damage_reports' to update reports based on a new input CSV.
+(for each script, use the --help option to see usage)
 
 ## Future Enhancements
 - Integration with Google Geocoding API for address validation
