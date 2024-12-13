@@ -1,0 +1,54 @@
+# .flake8
+[flake8]
+# Basic formatting
+max-line-length = 88 
+extend-ignore = E203 
+
+# Complexity limits
+max-complexity = 10 
+max-function-length = 50 
+max-parameters-amount = 5 
+max-returns-amount = 3  
+max-local-variables = 10 
+
+# Type annotation rules (flake8-annotations)
+allow-star-arg-any = true
+suppress-none-returning = true  
+mypy-init-return = true  
+
+# Variable naming (flake8-variables-names)
+min-var-name-length = 2 
+max-var-name-length = 35 
+
+# Print statement rules (flake8-print)
+exclude-print-paths = 
+    scripts/*  
+    tests/*    
+
+# Testing rules (flake8-pytest-style)
+pytest-fixture-no-parentheses = true
+pytest-parametrize-names-type = list
+pytest-parametrize-values-type = tuple
+pytest-raises-require-match-for = true
+
+# Docstring rules
+docstring-convention = google  
+
+# File exclusions
+exclude = 
+    .git,
+    __pycache__,
+    build,
+    dist,
+    *.pyc,
+    .venv,
+    venv
+
+# Per-file-ignores
+per-file-ignores =
+    # Allow prints and missing docstrings in tests
+    tests/*: D100,D101,D102,D103,T201
+    # Allow prints in scripts
+    scripts/*: T201
+    # Allow missing docstrings in __init__.py
+    __init__.py: D104
