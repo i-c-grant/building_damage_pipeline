@@ -1,6 +1,8 @@
-from building_damage.BasePipeline import BasePipeline, ValidationFunction
 from typing import Dict, List
+
 import duckdb as db
+
+from building_damage.BasePipeline import BasePipeline, ValidationFunction
 
 
 class DamageReportPipeline(BasePipeline):

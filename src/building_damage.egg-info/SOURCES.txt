@@ -1,3 +1,4 @@
+README.md
 pyproject.toml
 src/building_damage/BasePipeline.py
 src/building_damage/DamageReportPipeline.py

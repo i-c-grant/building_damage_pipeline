@@ -1,7 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Callable, Optional, List, Tuple, Dict
+from typing import Callable, Dict, List, Optional, Tuple
 
 import duckdb as db
 
@@ -62,10 +62,10 @@ class BasePipeline(ABC):
         pass
 
     def process_csv(
-            self,
-            csv_path: str,
-            target_table: str,
-            invalid_table: str,
+        self,
+        csv_path: str,
+        target_table: str,
+        invalid_table: str,
     ) -> Tuple[int, int]:
         """
         Process CSV through staging and validation into target table.
@@ -154,25 +154,28 @@ class BasePipeline(ABC):
             )
 
             # Insert valid and invalid records
-            self.conn.execute(f"""
+            self.conn.execute(
+                f"""
                 INSERT INTO {target_table}
                 SELECT * EXCLUDE(is_valid)
                 FROM staging_data
                 WHERE is_valid
-            """)
+            """
+            )
 
-            self.conn.execute(f"""
+            self.conn.execute(
+                f"""
                 INSERT INTO {invalid_table}
                 SELECT * EXCLUDE(is_valid)
                 FROM staging_data
                 WHERE NOT is_valid
-            """)
+            """
+            )
 
         # Clean up the staging table if there was an error
         except:
             self.conn.execute("DROP TABLE staging_data")
             raise
-
 
     def close(self):
         """Close database connection."""

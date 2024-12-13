@@ -1,5 +1,6 @@
-from building_damage.DamageReportPipeline import DamageReportPipeline
 import duckdb as db
+
+from building_damage.DamageReportPipeline import DamageReportPipeline
 
 conn = db.connect("data/db/building_damage.db")
 path = "data/raw/storm_damage_BIN.csv"
@@ -29,8 +30,4 @@ conn.execute("DROP TABLE staging_data")
 conn.execute(f"CREATE TABLE test_storm_damage ({TABLE_SCHEMA})")
 conn.execute(f"CREATE TABLE test_storm_damage_invalid ({TABLE_SCHEMA})")
 
-pipeline.process_csv(
-    path, "test_storm_damage", "test_storm_damage_invalid"
-)
-
-
+pipeline.process_csv(path, "test_storm_damage", "test_storm_damage_invalid")
