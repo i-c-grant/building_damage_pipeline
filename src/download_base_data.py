@@ -1,8 +1,15 @@
-from typing import Any, Dict, Optional
+import logging
 
 import duckdb as db
-import requests
-from duckdb import DuckDBPyConnection
+
+from src.util.extraction_utils import (
+    download_geojson_to_table,
+    ensure_spatial_extension,
+)
+
+# Limit for big API requests
+# Pagination would be safer, but this works for one-off bulk download
+MAX_RECORDS = 100_000_000
 
 
 def main() -> None:
@@ -11,14 +18,16 @@ def main() -> None:
     ensure_spatial_extension(conn)
 
     # Load building footprints
+    logging.info("Loading building footprints")
     building_footprints_endpoint: str = (
-        "https://data.cityofnewyork.us/resource/7w4b-tj9d.geojson"
+        "https://data.cityofnewyork.us/resource/qb5r-6dgf.geojson"
     )
     download_geojson_to_table(
         conn,
         "building_footprints",
         building_footprints_endpoint,
         create_spatial_index=True,
+        params={"$limit": MAX_RECORDS},
     )
 
     # Load community districts
