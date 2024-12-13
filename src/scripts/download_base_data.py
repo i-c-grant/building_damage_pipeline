@@ -2,8 +2,10 @@ import logging
 
 import duckdb as db
 
-from building_damage.utils.extraction_utils import (download_geojson_to_table,
-                                                    ensure_spatial_extension)
+from building_damage.utils.extraction_utils import (
+    download_geojson_to_table,
+    ensure_spatial_extension,
+)
 
 # Configure logging
 logging.basicConfig(
