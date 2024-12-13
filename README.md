@@ -16,7 +16,7 @@ My vision for the final pipeline is to develop a centralized representation of d
 ### Core Pipeline Architecture
 - `BasePipeline.py`: Abstract base class defining the ETL pipeline structure
   - Handles CSV processing with validation rules
-  - Supports pre and post-validation hooks
+  - Supports pre and post-validation hooks. Pre-validation hooks allow data enhancement (e.g. geocoding) ahead of validation to support additional checks.
   - Manages data staging and final table insertion
   - Tracks invalid records separately
   - Timestamps new records to allow for tracking change over time
