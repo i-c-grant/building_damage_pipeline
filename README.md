@@ -1,6 +1,9 @@
 # Building Damage Reporting System
 
-For this assignment, I focused on creating infrastructure that is scalable and robust enough to support the envisioned pipeline.
+For this assignment, I focused on creating infrastructure that is scalable and robust enough to support the envisioned pipeline. In particular, I used a database backend--here, DuckDB, but I would prefer PostGreSQL for final implementation, and developed some reusable infrastructure to support validation and consistent representations across the various data types.
+
+My vision for the final pipeline is to develop a centralized representation of damage reports. This representation would be a table where each row is unique with respect to BIN and a source ID corresponding to each timestamped data source. This would make it possible to trace changing reports for each building over time. The key would be to 1) use spatial methods to translate, for instance, flood extents to lists of affected BINs and 2) to use geocoding and other contextual data to assign BINs to buildings that lack them. This full implementation goes beyond the scope of this assignment, but the infrastructure developed here is a start.
+
 
 ## System Components
 
