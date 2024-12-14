@@ -71,3 +71,4 @@ Note: All spatial data is standardized to EPSG:4326 (WGS84) for this project. Fu
 - Integration with Google Geocoding API for address validation
 - Additional BasePipeline subclasses for other data sources
 - Better reporting on validation failures
+- More spatial validation in general, especially footprints vs. reported coordinates
