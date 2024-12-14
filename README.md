@@ -29,7 +29,6 @@ My vision for the final pipeline is to develop a centralized representation of d
   - Ensures proper formatting of BIN numbers and ZIP codes, catching missing BINs
   - Normalizes address data
   - Sanitizes column names automatically
-  - Location validation for Manhattan ZIP codes
 
 ### Utility Functions
 - `extraction_utils.py`: Helper functions for data extraction
@@ -53,12 +52,16 @@ Uses DuckDB as the backend database with:
 - Automatic timestamp tracking
 
 ## Running the pipeline
-1. Build the environment specified in environment.yaml with conda.
-2. Run 'pip install -e .' to install the building_damage module.
-3. Run 'set_up_database.py' to set up the duckdb database.
+For each script, use the --help option to see usage.
+1. Build the environment specified in environment.yaml with conda ('conda create build_damage_env -f environment.yaml').
+2. Run 'pip install -e .' to install the building_damage package in development mode.
+3. Run 'set_up_database.py' to set up the duckdb database with the appropriate schemas.
 4. Run 'download_base_data.py' to pull geographic base data from APIs and create spatial indices.
 5. Run 'update_damage_reports' to update reports based on a new input CSV.
-(for each script, use the --help option to see usage)
+6. Run aggregate_by_district.sql and export_damage_reports.sql against the database to generate the output GeoJSONs (e.g., 'duckdb building_damage.db < aggregate_by_district.sql').
+
+In a production environment, steps 3 and 4 would happen once at the begin of the deployment. Step 5 would happen whenever new reports are available. Steps 6 and 7 could be run either on a schedule or on demand.
+
 
 ## Output Files
 The pipeline generates two main GeoJSON outputs in the data/processed directory:
