@@ -60,7 +60,7 @@ For each script, use the --help option to see usage.
 5. Run 'update_damage_reports' to update reports based on a new input CSV.
 6. Run aggregate_by_district.sql and export_damage_reports.sql against the database to generate the output GeoJSONs (e.g., 'duckdb building_damage.db < aggregate_by_district.sql').
 
-In a production environment, steps 3 and 4 would happen once at the begin of the deployment. Step 5 would happen whenever new reports are available. Steps 6 and 7 could be run either on a schedule or on demand.
+In a production environment, steps 3 and 4 would happen once at the begin of the deployment. Step 5 would happen whenever new reports are available. Step 6 could be run either on a schedule or on demand.
 
 
 ## Output Files
