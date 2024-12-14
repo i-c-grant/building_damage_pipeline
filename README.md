@@ -60,6 +60,13 @@ Uses DuckDB as the backend database with:
 5. Run 'update_damage_reports' to update reports based on a new input CSV.
 (for each script, use the --help option to see usage)
 
+## Output Files
+The pipeline generates two main GeoJSON outputs in the data/processed directory:
+- `damage_reports.geojson`: Individual damage reports joined with building footprints
+- `district_damage_counts.geojson`: Aggregated damage statistics by community district
+
+Note: All spatial data is standardized to EPSG:4326 (WGS84) for this project. Future implementations requiring higher accuracy within NYC might benefit from using State Plane (EPSG:2263).
+
 ## Future Enhancements
 - Integration with Google Geocoding API for address validation
 - Additional BasePipeline subclasses for other data sources
